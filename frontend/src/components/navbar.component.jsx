@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Navbar(props) {
 	return (
 		<nav className="navbar navbar-dark bg-dark navbar-expand-lg">
-			<link to="/" className="navbar-brand">
+			<Link to="/" className="navbar-brand">
 				ExcerciseTracker
-			</link>
+			</Link>
 			<div className="collapse navbar-collapse">
 				<ul className="navbar-nav mr-auto">
 					<li className="navbar-item">
