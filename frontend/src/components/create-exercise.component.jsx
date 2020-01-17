@@ -16,19 +16,19 @@ export default function CreateExercises(props) {
 	}, []);
 
 	function onChangeUsername(e) {
-		setUsername(e);
+		setUsername(e.target.value);
 	}
 	function onChangeDescription(e) {
-		setDescription(e);
+		setDescription(e.target.value);
 	}
 	function onChangeDuration(e) {
-		setDuration(e);
+		setDuration(e.target.value);
 	}
-	function onChangeDate(e) {
-		setDate(e);
+	function onChangeDate(date) {
+		setDate(date);
 	}
 	function onChangeUsers(e) {
-		setUsers(e);
+		setUsers(e.target.value);
 	}
 
 	function onSubmit(e) {
@@ -52,7 +52,14 @@ export default function CreateExercises(props) {
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label>Username: </label>
-					{/* <select ref="userInput" required className="form-control" value={username} onChange={onChangeUsername}>
+					<select
+						class="browser-default"
+						// ref="userInput"
+						//todo
+						required
+						className="form-control"
+						value={username}
+						onChange={onChangeUsername}>
 						{users.map((user) => {
 							return (
 								<option key={user} value={user}>
@@ -60,7 +67,7 @@ export default function CreateExercises(props) {
 								</option>
 							);
 						})}
-					</select> */}
+					</select>
 				</div>
 				<div className="form-group">
 					<label>Description: </label>
