@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 export default function CreateExercises(props) {
 	const [username, setUsername] = useState('');
@@ -11,8 +12,12 @@ export default function CreateExercises(props) {
 
 	useEffect(() => {
 		// code to run on component mount
-		setUsers(['test user']);
-		setUsername('test user');
+		axios.get('http://localhost:4000/users/').then((response) => {
+			if (response.data.length > 0) {
+				setUsers(response.data.map((user) => user.username));
+				setUsername(response.data[0].username);
+			}
+		});
 	}, []);
 
 	function onChangeUsername(e) {
@@ -27,9 +32,6 @@ export default function CreateExercises(props) {
 	function onChangeDate(date) {
 		setDate(date);
 	}
-	function onChangeUsers(e) {
-		setUsers(e.target.value);
-	}
 
 	function onSubmit(e) {
 		e.preventDefault();
@@ -43,6 +45,11 @@ export default function CreateExercises(props) {
 
 		console.log(exercise);
 
+		axios
+			.post('http://localhost:4000/exercises/add/', exercise)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
+
 		window.location = '/';
 	}
 
@@ -53,11 +60,10 @@ export default function CreateExercises(props) {
 				<div className="form-group">
 					<label>Username: </label>
 					<select
-						class="browser-default"
+						className="browser-default form-control"
 						// ref="userInput"
 						//todo
 						required
-						className="form-control"
 						value={username}
 						onChange={onChangeUsername}>
 						{users.map((user) => {

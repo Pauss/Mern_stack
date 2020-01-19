@@ -27,6 +27,7 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/update/:id').put((req, res) => {
+	console.log('/update');
 	Exercises.findByIdAndUpdate(req.params.id, req.body)
 		.then((exercise) => res.json(exercise))
 		.catch((err) => res.status(400).json(`Error: ${err}`));

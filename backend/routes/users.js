@@ -24,7 +24,7 @@ router.route('/update/:id').put((req, res) => {
 		.catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-router.route('/delete/:id').delete((req, res) => {
+router.route('/:id').delete((req, res) => {
 	User.findByIdAndRemove({ _id: req.params.id })
 		.then(() => res.json('User removed from Db!'))
 		.catch((err) => res.status(400).json(`Error: ${err}`));
