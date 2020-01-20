@@ -44,7 +44,7 @@ export default function ExercisesList(props) {
 
 	function ExercisesList() {
 		return exercises.map((currentexercise) => {
-			return <Exercise exercise={currentexercise} deleteExercise={deleteExercise} key={currentexercise._id} />;
+			return <Exercise exercise={currentexercise} deleteExercise={deleteExercise} />;
 		});
 	}
 
