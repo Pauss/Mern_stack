@@ -29,17 +29,24 @@ export default function ExercisesList(props) {
 
 	useEffect(() => {
 		// code to run on component mount
-		axios
-			.get('http://localhost:4000/exercises/')
-			.then((res) => {
+		(async () => {
+			try {
+				const res = await axios.get('http://localhost:4000/exercises/');
 				setExercises(res.data);
-			})
-			.catch((err) => console.log(err));
+			} catch (err) {
+				console.log(err);
+			}
+		})();
 	}, []);
 
-	function deleteExercise(id) {
-		axios.delete('http://localhost:4000/exercises/' + id).then((res) => console.log(res.data));
-		setExercises(exercises.filter((el) => el._id !== id));
+	async function deleteExercise(id) {
+		try {
+			const res = axios.delete('http://localhost:4000/exercises/' + id);
+			console.log(res.data);
+			setExercises(exercises.filter((el) => el._id !== id));
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	function ExercisesList() {

@@ -17,10 +17,14 @@ export default function CreateUsers(props) {
 
 		console.log(user);
 
-		axios
-			.post('http://localhost:4000/users/add', user)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+		(async () => {
+			try {
+				const res = await axios.post('http://localhost:4000/users/add', user);
+				console.log(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		})();
 
 		setUsername('');
 	}

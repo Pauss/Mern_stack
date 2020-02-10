@@ -11,13 +11,17 @@ export default function CreateExercises(props) {
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
-		// code to run on component mount
-		axios.get('http://localhost:4000/users/').then((response) => {
-			if (response.data.length > 0) {
-				setUsers(response.data.map((user) => user.username));
-				setUsername(response.data[0].username);
+		(async () => {
+			try {
+				const res = await axios.get('http://localhost:4000/users/');
+				if (res.data.length > 0) {
+					setUsers(res.data.map((user) => user.username));
+					setUsername(res.data[0].username);
+				}
+			} catch (err) {
+				console.log(err);
 			}
-		});
+		})();
 	}, []);
 
 	function onChangeUsername(e) {
@@ -45,10 +49,14 @@ export default function CreateExercises(props) {
 
 		console.log(exercise);
 
-		axios
-			.post('http://localhost:4000/exercises/add/', exercise)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+		(async () => {
+			try {
+				const res = await axios.post('http://localhost:4000/exercises/add/', exercise);
+				console.log(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		})();
 
 		window.location = '/';
 	}
