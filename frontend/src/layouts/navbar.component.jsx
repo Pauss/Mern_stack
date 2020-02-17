@@ -24,6 +24,11 @@ export default function Navbar(props) {
 							Create User
 						</Link>
 					</li>
+					<li className="navbar-item justify-content-end">
+						<Link to="/singin" className="nav-link">
+							SingIn
+						</Link>
+					</li>
 				</ul>
 			</div>
 		</nav>

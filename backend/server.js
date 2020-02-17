@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo')(session);
 require('dotenv').config(); // loads env variables from a file .env
 
 const TWO_HOURS = 1000 * 60 * 60 * 2;
+const TWO_SEC = 1000 * 2;
 
 const { PORT = 4000, SESS_LIFETIME = TWO_HOURS, SESS_NAME = 'sid', SESS_SECRET = 'first login attempt' } = process.env;
 
