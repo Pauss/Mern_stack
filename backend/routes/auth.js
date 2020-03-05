@@ -26,11 +26,6 @@ router.route('/register').post(async (req, res) => {
 });
 
 router.route('/login').post((req, res) => {
-	//validations TODO - in models?
-
-	//set a cookie for session
-	//req.session.userId = user.id;
-
 	const { email, password } = req.body;
 	User.findOne({ email }, function(err, user) {
 		if (err) {
@@ -63,8 +58,6 @@ router.route('/login').post((req, res) => {
 });
 
 router.route('/isLogged').get(({ session }, res) => {
-	console.log(session);
-
 	if (session.userId) {
 		res.send({ isLogged: true });
 	} else {

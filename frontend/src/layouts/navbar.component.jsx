@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import { SessionContext } from '../utils/session';
 
 const links_logged = [
-	{ name: 'Welcome', path: '/' },
+	{ name: 'Exercises', path: '/exercises' },
+	{ name: 'Create Exercises Log', path: '/create' },
 	{ name: 'Logout', path: '/logout' },
 ];
 
-const links_notLogged = [
-	{ name: 'Welcome', path: '/' },
-	{ name: 'Sign In', path: '/signin' },
-];
+const links_notLogged = [{ name: 'Sign In', path: '/signin' }];
 
 export default function Navbar(props) {
 	const { isLogged } = useContext(SessionContext);
