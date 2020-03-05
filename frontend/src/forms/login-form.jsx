@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { SessionContext } from '../utils/session';
+import { useContext } from 'react';
 
 const formRegisterStyle = {
 	display: 'flex',
@@ -12,6 +15,8 @@ const formRegisterStyle = {
 export default function Login(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [logged, setLogged] = useContext(SessionContext);
+	let history = useHistory();
 
 	function onChangeEmail(e) {
 		setEmail(e.target.value);
@@ -33,15 +38,13 @@ export default function Login(props) {
 		//todo, check link of DB
 		(async () => {
 			try {
-				const res = await axios.post('http://localhost:4000/auth/login/', user);
-				console.log(res.data);
+				const res = await axios.post('http://localhost:4001/auth/login/', user, { withCredentials: true });
+				setLogged(true);
+				history.push('/');
 			} catch (err) {
 				console.log(err);
 			}
 		})();
-
-		//remove it
-		window.location = '/';
 	}
 
 	return (
