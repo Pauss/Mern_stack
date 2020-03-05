@@ -19,8 +19,7 @@ export default function CreateUsers(props) {
 
 		(async () => {
 			try {
-				const res = await axios.post('http://localhost:4000/users/add', user);
-				console.log(res.data);
+				await axios.post('http://localhost:4001/users/add', user);
 			} catch (err) {
 				console.log(err);
 			}

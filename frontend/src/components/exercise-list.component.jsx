@@ -28,10 +28,9 @@ export default function ExercisesList(props) {
 	const [exercises, setExercises] = useState([]);
 
 	useEffect(() => {
-		// code to run on component mount
 		(async () => {
 			try {
-				const res = await axios.get('http://localhost:4000/exercises/');
+				const res = await axios.get('http://localhost:4001/exercises/', { withCredentials: true });
 				setExercises(res.data);
 			} catch (err) {
 				console.log(err);
@@ -41,8 +40,7 @@ export default function ExercisesList(props) {
 
 	async function deleteExercise(id) {
 		try {
-			const res = axios.delete('http://localhost:4000/exercises/' + id);
-			console.log(res.data);
+			axios.delete('http://localhost:4001/exercises/' + id);
 			setExercises(exercises.filter((el) => el._id !== id));
 		} catch (err) {
 			console.log(err);
@@ -51,7 +49,7 @@ export default function ExercisesList(props) {
 
 	function ExercisesList() {
 		return exercises.map((currentexercise) => {
-			return <Exercise exercise={currentexercise} deleteExercise={deleteExercise} />;
+			return <Exercise key={currentexercise._id} exercise={currentexercise} deleteExercise={deleteExercise} />;
 		});
 	}
 

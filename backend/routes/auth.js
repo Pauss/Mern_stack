@@ -26,11 +26,6 @@ router.route('/register').post(async (req, res) => {
 });
 
 router.route('/login').post((req, res) => {
-	//validations TODO - in models?
-
-	//set a cookie for session
-	//req.session.userId = user.id;
-
 	const { email, password } = req.body;
 	User.findOne({ email }, function(err, user) {
 		if (err) {
@@ -55,20 +50,29 @@ router.route('/login').post((req, res) => {
 				} else {
 					req.session.userId = user.id;
 					console.log(req.session);
-					res.redirect('/');
+					res.status(200).json({ userId: user.id, username: user.username });
 				}
 			});
 		}
 	});
 });
 
-router.route('/logout').get((req, res) => {
-	if (req.session.userId) {
-		req.session.destroy(function(err) {
-			res.redirect('/');
+router.route('/isLogged').get(({ session }, res) => {
+	if (session.userId) {
+		res.send({ isLogged: true });
+	} else {
+		res.status(200).send({ isLogged: false });
+	}
+});
+
+router.route('/logout').get(({ session }, res) => {
+	if (session.cookie) {
+		session.destroy(function(err) {
+			res.clearCookie('sid');
+			res.status(200).json('User Log out!');
 		});
 	} else {
-		res.redirect('/login');
+		res.status(401).json('Error when logging out!');
 	}
 });
 

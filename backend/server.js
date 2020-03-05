@@ -9,13 +9,13 @@ require('dotenv').config(); // loads env variables from a file .env
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 const TWO_SEC = 1000 * 2;
 
-const { PORT = 4000, SESS_LIFETIME = TWO_HOURS, SESS_NAME = 'sid', SESS_SECRET = 'first login attempt' } = process.env;
+const { PORT = 4001, SESS_LIFETIME = TWO_HOURS, SESS_NAME = 'sid', SESS_SECRET = 'first login attempt' } = process.env;
 
 const app = express();
 //const port = process.env.port || 4000;
 
 // app.use middleware's
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json()); // same as bodyParser.json()
 
 // mongodb connection

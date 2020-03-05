@@ -41,7 +41,7 @@ export default function Register(props) {
 		//todo, check link of DB
 		(async () => {
 			try {
-				const res = await axios.post('http://localhost:4000/auth/register/', user);
+				const res = await axios.post('http://localhost:4000/auth/register/', user, { withCredentials: true });
 				console.log(res.data);
 			} catch (err) {
 				console.log(err);

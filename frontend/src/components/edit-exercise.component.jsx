@@ -11,11 +11,9 @@ export default function EditExercises(props) {
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
-		// code to run on component mount
-
 		(async () => {
 			try {
-				const res = await axios.get('http://localhost:4000/exercises/' + props.match.params.id);
+				const res = await axios.get('http://localhost:4001/exercises/' + props.match.params.id);
 				setUsername(res.data.username);
 				setDescription(res.data.description);
 				setDuration(res.data.duration);
@@ -27,7 +25,7 @@ export default function EditExercises(props) {
 
 		(async () => {
 			try {
-				const res = await axios.get('http://localhost:4000/users/');
+				const res = await axios.get('http://localhost:4001/users/');
 				if (res.data.length > 0) {
 					setUsers(res.data.map((user) => user.username));
 				}
@@ -35,7 +33,7 @@ export default function EditExercises(props) {
 				console.log(err);
 			}
 		})();
-	}, []);
+	}, [props.match.params.id]);
 
 	function onChangeUsername(e) {
 		setUsername(e.target.value);
@@ -64,14 +62,15 @@ export default function EditExercises(props) {
 
 		(async () => {
 			try {
-				const res = await axios.put('http://localhost:4000/exercises/update/' + props.match.params.id, exercise);
-				console.log(res.data);
+				await axios.put('http://localhost:4001/exercises/update/' + props.match.params.id, exercise, {
+					withCredentials: true,
+				});
 			} catch (err) {
 				console.log(err);
 			}
 		})();
 
-		window.location = '/';
+		window.location = '/exercises';
 	}
 
 	return (

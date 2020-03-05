@@ -13,7 +13,7 @@ export default function CreateExercises(props) {
 	useEffect(() => {
 		(async () => {
 			try {
-				const res = await axios.get('http://localhost:4000/users/');
+				const res = await axios.get('http://localhost:4001/users/', { withCredentials: true });
 				if (res.data.length > 0) {
 					setUsers(res.data.map((user) => user.username));
 					setUsername(res.data[0].username);
@@ -51,14 +51,13 @@ export default function CreateExercises(props) {
 
 		(async () => {
 			try {
-				const res = await axios.post('http://localhost:4000/exercises/add/', exercise);
-				console.log(res.data);
+				await axios.post('http://localhost:4001/exercises/add/', exercise, { withCredentials: true });
 			} catch (err) {
 				console.log(err);
 			}
 		})();
 
-		window.location = '/';
+		window.location = '/exercises';
 	}
 
 	return (
@@ -67,13 +66,7 @@ export default function CreateExercises(props) {
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label>Username: </label>
-					<select
-						className="browser-default form-control"
-						// ref="userInput"
-						//todo
-						required
-						value={username}
-						onChange={onChangeUsername}>
+					<select className="browser-default form-control" required value={username} onChange={onChangeUsername}>
 						{users.map((user) => {
 							return (
 								<option key={user} value={user}>
