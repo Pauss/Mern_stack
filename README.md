@@ -3,5 +3,7 @@ Learning MERN stack
 
 - MongoDB
 - Express
-- React
+- React Hooks
 - NodeJs
+
+Authentication made with express-session, reactContext and localStorage. 
