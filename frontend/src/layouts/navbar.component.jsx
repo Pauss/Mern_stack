@@ -13,9 +13,9 @@ const links_notLogged = [
 ];
 
 export default function Navbar(props) {
-	const [logged, setLogged] = useContext(SessionContext);
+	const { isLogged } = useContext(SessionContext);
 
-	const links = logged === true ? links_logged : links_notLogged;
+	const links = isLogged === true ? links_logged : links_notLogged;
 
 	return (
 		<nav className="navbar navbar-dark bg-dark navbar-expand-lg">

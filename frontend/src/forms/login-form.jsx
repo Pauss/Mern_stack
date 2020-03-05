@@ -15,7 +15,7 @@ const formRegisterStyle = {
 export default function Login(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [logged, setLogged] = useContext(SessionContext);
+	const { setIsLogged } = useContext(SessionContext);
 	let history = useHistory();
 
 	function onChangeEmail(e) {
@@ -38,8 +38,8 @@ export default function Login(props) {
 		//todo, check link of DB
 		(async () => {
 			try {
-				const res = await axios.post('http://localhost:4001/auth/login/', user, { withCredentials: true });
-				setLogged(true);
+				await axios.post('http://localhost:4001/auth/login/', user, { withCredentials: true });
+				setIsLogged(true);
 				history.push('/');
 			} catch (err) {
 				console.log(err);
